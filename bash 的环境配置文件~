@@ -1,0 +1,39 @@
+login 与 non-login shell
+因此，存在两种环境配置：login 和 non-login shell。
+login shell 与 non-login shell区别在于有没有登陆 (login) 啦
+
+ogin shell：取得 bash 时需要完整的登陆流程的，就称为 login shell。举例来说，你要由 tty1 ~ tty6 登陆，需要输入用户的账号与密码，此时取得的 bash 就称为『 login shell 』啰；
+
+non-login shell：取得 bash 接口的方法不需要重复登陆的举动，举例来说，(1)你以 X window 登陆 Linux 后， 再以 X 的图形化接口启动终端机，此时那个终端接口并没有需要再次的输入账号与密码，那个 bash 的环境就称为 non-login shell了。(2)你在原本的 bash 环境下再次下达 bash 这个命令，同样的也没有输入账号密码， 那第二个 bash (子程序) 也是 non-login shell 。
+
+login shell 其实只会读取这两个配置文件：
+1. /etc/profile：这是系统整体的配置，你最好不要修改这个文件；
+2. ~/.bash_profile 或 ~/.bash_login 或 ~/.profile：属于使用者个人配置，你要改自己的数据，就写入这里！
+在ubuntu中，这个文件是~/.profile,文件内容如下：
+
+jun@jun-OptiPlex-780:~$ more .profile
+# ~/.profile: executed by the command interpreter for login shells.
+# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
+# exists.
+# see /usr/share/doc/bash/examples/startup-files for examples.
+# the files are located in the bash-doc package.
+
+# the default umask is set in /etc/profile; for setting the umask
+# for ssh logins, install and configure the libpam-umask package.
+#umask 022
+
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+	. "$HOME/.bashrc"
+    fi
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+基本上就是添了一个~/bin的路径
+
