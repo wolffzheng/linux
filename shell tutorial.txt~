@@ -1,0 +1,27 @@
+1. 返回值
+在末尾添上exit 0,那么当执行完脚本。可以用echo $?查看返回值。
+
+2. read 
+#!/bin/bash
+#my first script
+echo "Hey what is your first name?"
+read a
+echo "welcome Mr./Mrs. $a,would you like to tell us,your last name?"
+read b
+echo "Thanks Mr./Mrs $a $b for telling us your name"
+echo "***********************************"
+echo "Mr./Mrs. $b,it's time to say you goodbye" 
+exit 0
+
+或者这样
+#!/bin/bash
+
+read -p "Please input your first name:" firstname
+read -p "Please input your last name:" lastname
+echo "Your full name is $firstname $lastname"
+exit 0
+
+注意read命令一定要加-p
+
+3。
+
