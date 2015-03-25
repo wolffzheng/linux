@@ -37,3 +37,17 @@ fi
 
 基本上就是添了一个~/bin的路径
 
+
+source ：读入环境配置文件的命令
+由于 /etc/profile 与 ~/.bash_profile 都是在取得 login shell 的时候才会读取的配置文件，所以， 如果你将自己的偏好配置写入上述的文件后，通常都是得注销再登陆后，该配置才会生效。那么，能不能直接读取配置文件而不注销登陆呢？ 可以的！那就得要利用 source 这个命令了！
+
+[root@www ~]# source 配置文件档名
+
+范例：将家目录的 ~/.bashrc 的配置读入目前的 bash 环境中
+[root@www ~]# source ~/.bashrc  <==底下这两个命令是一样的！
+[root@www ~]#  .  ~/.bashrc
+利用 source 或小数点 (.) 都可以将配置文件的内容读进来目前的 shell 环境中！ 举例来说，我修改了 ~/.bashrc ，那么不需要注销，立即以 source ~/.bashrc 就可以将刚刚最新配置的内容读进来目前的环境中！很不错吧！还有，包括 ~/bash_profile 以及 /etc/profile 的配置中， 很多时候也都是利用到这个 source (或小数点) 的功能喔！
+
+
+
+non-login shell读取的环境配置文件是 ～/.bashrc

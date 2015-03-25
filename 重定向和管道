@@ -1,0 +1,6 @@
+比如说 在配置xilinx ise时，要运行一个文件/opt/Xilinx/14.7/ISE_DS/settings64.sh
+那么就在 ～/.bashrc设置这个 non-login shell
+问题每次运行这个脚本，都会出一堆的output。所以就想把输出给重定向。
+在.bashrc中
+source /opt/Xilinx/14.7/ISE_DS/settings64.sh /dev/null
+这样就可以了，/dev/null就是垃圾箱
