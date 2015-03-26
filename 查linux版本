@@ -1,0 +1,4 @@
+cat /proc/version
+
+或者
+uname -a
