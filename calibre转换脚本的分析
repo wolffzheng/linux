@@ -1,0 +1,19 @@
+#!/bin/bash  
+#============ get the file name ===========  
+Folder_A=/home/jun/下载  
+for file_a in ${Folder_A}/*.azw3; do  #列出所有的azw3文件
+    temp_file=$file_a                 #temp_file就是文件的 路径+文件名
+    #temp_file=`basename $file_a`     
+    echo $temp_file
+    filename=${temp_file%.azw3}      #通过这句，过滤出了文件名 赋值给filename
+    ebook-convert $temp_file $filename.mobi    #这句就是calibre 转换的命令
+done
+
+for file_a in ${Folder_A}/*.epub; do  
+    temp_file=$file_a
+    #temp_file=`basename $file_a`  
+    echo $temp_file
+    filename=${temp_file%.epub}
+    ebook-convert $temp_file $filename.mobi   
+done           
+
