@@ -12,7 +12,7 @@ expect "*https://github.com*"	#当运行git push origin master,我们知道接�
 send "wolffzheng\r"		#发送用户名
 expect "*wolffzheng@github.com*"#等待密码输入的提示
 send "Wolff8341\r"  		#发送密码
-expect eof 			#结束
+interact			#expect结束,控制权交回给控制台，一定要有这句
 spawn git branch -d tmp
 
 首先要sudo apt-get install expect tcl

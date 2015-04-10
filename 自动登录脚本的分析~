@@ -1,0 +1,21 @@
+脚本如下：
+#!/usr/bin/expect	#一定要写/usr/bin/expect,不能用/bin/bash
+spawn git branch tmp	#所有的bash命令一定要加spawn
+spawn git checkout tmp
+spawn git add . --all
+spawn git commit -m "add books"
+spawn git checkout master
+spawn git merge tmp
+spawn git push origin master
+
+expect "*https://github.com*"	#当运行git push origin master,我们知道接下来就是要输用户名，所以这里在等待用户名
+send "wolffzheng\r"		#发送用户名
+expect "*wolffzheng@github.com*"#等待密码输入的提示
+send "Wolff8341\r"  		#发送密码
+expect eof 			#结束
+spawn git branch -d tmp
+
+首先要sudo apt-get install expect tcl
+
+
+
