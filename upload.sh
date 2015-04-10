@@ -16,6 +16,6 @@ expect "*https://github.com*"
 send "wolffzheng\r"
 expect "*wolffzheng@github.com*"
 send "Wolff8341\r"
-interact
+expect eof
 spawn git branch -d tmp
 
