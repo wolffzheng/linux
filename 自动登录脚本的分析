@@ -1,21 +1,57 @@
-脚本如下：
-#!/usr/bin/expect	#一定要写/usr/bin/expect,不能用/bin/bash
-spawn git branch tmp	#所有的bash命令一定要加spawn
-spawn git checkout tmp
-spawn git add . --all
-spawn git commit -m "add books"
-spawn git checkout master
-spawn git merge tmp
-spawn git push origin master
+共有三个脚本，分析如下：
 
-expect "*https://github.com*"	#当运行git push origin master,我们知道接下来就是要输用户名，所以这里在等待用户名
-send "wolffzheng\r"		#发送用户名
-expect "*wolffzheng@github.com*"#等待密码输入的提示
-send "Wolff8341\r"  		#发送密码
-interact			#expect结束,控制权交回给控制台，一定要有这句
-spawn git branch -d tmp
+在每个文件夹内有manual_upload.sh以及auto_upload.sh
+manual_upload.sh:
+#!/bin/bash
+git branch tmp
+git checkout tmp
+git add . --all
+#echo "please input commit message:"
+#read message
+git commit -m "add books"
+git checkout master
+git merge tmp
+git push origin master
+git branch -d tmp
+这是需要手动输密码的脚本
+
+auto_upload.sh:
+#!/usr/bin/expect		#一定要写/usr/bin/expect,不能用/bin/bash
+				#注意这里是expect的脚本，并不是bash脚本
+set username [lindex $argv 0]	#通过参数传入用户名以及密码
+set password [lindex $argv 1]
+send_user "$username:$password" #这里显示密码，调试用的
+
+spawn ./manual_update.sh 	#通过spawn调用manual_update.sh，spawn与expect一起使用
+expect "*https://github.com*"	#expect预测可能的输入情况，然后用send发送相关的用户名以及密码
+send "$username\r"
+
+expect "*wolffzheng@github.com*"
+send "$password\r"
+#expect eof
+interact
 
 首先要sudo apt-get install expect tcl
 
+在文件夹外，还有upload.sh。用于读取密码用户名文件，然后进入各个文件夹，调用各自的auto_upload.sh
+upload.sh:
+#!/bin/bash
+read username password<date.txt		#用户名以及密码存在date.txt中
+current_pwd=$(pwd)			#得到当前路径
+echo $username:$password
+
+for f in $current_pwd/*			#进入各个文件夹中
+do
+cd $f
+pwd
+
+./auto_upload.sh $username $password   #调用各自的auto_upload.sh，并传入用户名 密码
+done
+
+
+因此有三种运行方式：
+1.手动：./manual_upload.sh 这种方式会提示输入用户名以及密码
+2.半自动：./auto_upload.sh xxx yyy （注意：xxx为用户名 yyy为密码，这种方式会自动上传一个文件的所有文件）
+3.全自动： ./upload.sh 它会自动读取date.txt中的密码以及用户名，然后将所有文件夹的文件都上传一遍
 
 
