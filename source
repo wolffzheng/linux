@@ -1,0 +1,22 @@
+先来看个script
+file1.sh
+#! /bin/bash
+a="hi"
+echo $a
+
+当你添加了chmod +x file1.sh
+运行这个脚本用这个命令时：./file1.sh，其实在shell中是另外弄了shell，
+然后运行这个脚本。所以当这个脚本结束时，你在运行echo $a，是什么也没有的
+因为a变量随着新的shell一起消失了。
+假如你依然想保留a这个变量，那么就要用source file1.sh
+source命令并不重新弄一个bash，而是在原来的bash中运行如上的命令。当如上的命令
+结束时，它所有的中间变量，以及环境变量都不变
+
+file2.sh
+#! /bin/bash
+. ./file1.sh
+echo $a
+
+. ./file1.sh等同于source ./file1.sh,只有这样在a变量才继续存在file2.sh中
+
+对于那些只是环境变量的脚本，因此要用source命令。
