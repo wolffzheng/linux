@@ -1,0 +1,25 @@
+1.变量
+使用时，在前面加$
+当变量里包含空格时，那么这个变量就要加双引号
+myvar="Hi there"
+echo $myvar----->Hi there
+echo "$myvar"----->Hi there
+echo '$myvar'----->$myvar
+echo \$myvar------>$myvar    使用\,表示取消$的特殊意义
+
+看下面这个脚本
+#!/bin/bash
+echo "Is it morning?Please answer yes or no"
+read timeofday
+if [ $timeofday = "yes" ]
+then
+	echo "Good morning"
+elif [ $tinmeofday = "no" ];then
+	echo "Good afternoon"
+else
+	echo "sorry,input is wrong"
+	exit 1
+fi
+exit 0
+说明：if [ $timeofday = "yes" ]这是判断，输入的是不是yes,注意[ ]的前后要有空格，变量$timeofday也要有空格，否则bash判断不出哪个是变量
+如果输入的是个回车键，那么以上脚本会出错。因为直接回车意味着$timeofday等于 (空）,那么if [ $timeofday = "yes" ]就变成 if [  = "yes" ]，所以报错，如果将其改成 if [ "$timeofday" = "yes" ]，那么就会变成 if [ "" = "yes" ]这样就合法了
