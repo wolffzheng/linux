@@ -1,0 +1,20 @@
+expr 可以将变量当做数字来看 所以也就可以用逻辑表达 比如
+$(expr $m <= $n)
+而if while until一定要跟命令
+  GNU nano 2.2.6               文件： find.sh                                  
+
+#!/bin/bash
+result=$(find . -newer script1.sh)#查找比script1.sh更新的文件
+set $result			#结果存在result中
+i=1				#这时的result只是字符串，每个结果用空格隔开
+r=0				#将result 给set掉，这样结果就成为list,分别保存在
+num=$#				# $1 $2 $3 ......
+while [ "$i" != "$num" ]	#地下的这段代码就是与$#比大小，分别输出这些结果
+do    	     	       		#如果使用 while [ $(expr $i <= $# ]将不工作，
+				#因为expr是代数运算，不是命令
+        echo $i
+        echo "$1"
+        shift
+        i=$(($i + 1))		#这里expr就可以，因为是代数运算
+done
+
