@@ -1,0 +1,4 @@
+1.想将xxx文件拷入子目录下
+a=find . -maxdepth 1 -type d	#显示当前目录下有多少个子目录
+set $a		#这些子目录存在#1,2,.....当中
+for item in $*; do cp ~/git-books/xxx $item; done #完成拷贝
