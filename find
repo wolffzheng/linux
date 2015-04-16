@@ -1,3 +1,5 @@
 find . -maxdepth 1 -type d
 maxdepth保证只进入一层目录 type d表示只找目录
 
+在当前目录下查找大于50M的文件，然后删掉
+find . -type f -size +50000k -exec rm {} \;
