@@ -1,0 +1,48 @@
+#  删除最小的匹配前缀
+##  删除最大的匹配前缀
+%   删除最小的匹配后缀
+%%  删除最大的匹配后缀
+
+这些运算符的语法形式如下： ${ varname op pattern } （各种括号，晕了）
+注意使用# pattern必须是匹配前缀的模式；
+使用%，pattern必须死匹配后缀的模式，不然会出错；
+
+
+
+Var=/home/firefox/MyProgram/fire.login.name
+${Variable#pattern}:如果模式匹配于变量值的开头处，则删除匹配的最短部分，并且返回剩下的部分
+例子：
+[fire]$ echo ${Var#*/}
+[fire]$ home/firefox/MyProgram/fire.login.name
+[fire]$ echo ${Var#/*/}
+[fire]$ firefox/MyProgram/fire.login.name
+[fire]$ echo ${Var#*.}
+[fire]$ login.name
+
+${Variable##pattern}:如果模式匹配于变量值的开头处，则删除匹配的最长部分，并且返回剩下的部分
+例子
+[fire]$ echo ${Var##*/}
+[fire]$ fire.login.name
+[fire]$ echo ${Var##/*/}
+[fire]$ fire.login.name
+[fire]$ echo ${Var##*.}
+[fire]$ name
+
+${Variable%pattern}:如果模式匹配于变量值的结尾处，则删除匹配的最短部分，并且返回剩下的部分
+例子
+[fire]$ echo ${Var%/*}
+[fire]$ /home/firefox/MyProgram
+[fire]$ echo ${Var%.*}
+[fire]$ /home/firefox/MyProgram/fire.login
+
+${Variable%%pattern}:如果模式匹配于变量值的结尾处，则删除匹配的最长部分，并且返回剩下的部分
+例子
+[fire]$ echo ${Var%%/*}
+[fire]$
+[fire]$ echo ${Var%%.*}
+[fire]$ /home/firefox/MyProgram/fire
+
+${#Variable}:返回$Variable值里的字符长度
+[fire]$ echo ${#Variable}
+[fire]$ 39
+
