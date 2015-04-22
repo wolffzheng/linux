@@ -1,0 +1,20 @@
+1.sudo apt-get update
+
+sudo apt-get install gcc # c compiler download
+sudo apt-get install build-essential # Packages which are considered essential for building Debian packages
+
+sudo apt-get install gcc-avr   # A port of GCC to AVR target processor
+sudo apt-get install gdb-avr   # AVR GNU debugger
+sudo apt-get install binutils-avr #low-level utilities for building & manipulating object files
+sudo apt-get install avr-libc # AVR Library files
+sudo apt-get install avrdude # command-line program for programming AVR chips.
+
+2. sudo apt-get update && sudo apt-get install arduino arduino-core
+3. sudo usermod -aG dialout <myuser>  
+   add myuser to dialout group
+4. reboot
+5.check whether is working or not
+  avrdude -c avrispmkII -p m8 -P usb 
+  if it is working, it should return programer's ID
+6. running command to download hex file to flash
+   avrdude -c avrispmkII -p m8 -P usb -e -U flash:w:LCD_TEST.hex 
