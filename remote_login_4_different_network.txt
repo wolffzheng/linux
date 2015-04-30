@@ -1,0 +1,16 @@
+对于在内网的PC，远程登录只要用ssh就行
+对于外网的链接，ssh @ip address是行不通的，因此要用ngrok，它就是外壳
+1.到这个网站上下载ngrok https://dashboard.ngrok.com/
+2. ./ngrok authtoken 4s9v3Ghqp1UkWmopx5fRL_7E1MsfWVVK8EUpZyat1Ah 
+3. 运行 。/ngrok tcp 22
+4.得到如下信息： 
+ngrok by @inconshreveable                                                                                                     (Ctrl+C to quit)
+                                                                                                                                              
+Tunnel Status                 online                                                                                                          
+Version                       2.0.17/2.0.17                                                                                                   
+Web Interface                 http://127.0.0.1:4040                                                                                           
+Forwarding                    tcp://0.tcp.ngrok.io:48324 -> localhost:22                                                                      
+                                                                                                                                              
+Connnections                  ttl     opn     rt1     rt5     p50     p90                                                                     
+
+5. 那么只要运行 xxx@0.tcp.ngrok.io -p48324 就可以了
