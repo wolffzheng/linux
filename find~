@@ -1,0 +1,41 @@
+find . -maxdepth 1 -type d
+maxdepth保证只进入一层目录 type d表示只找目录
+
+在当前目录下查找大于50M的文件，然后删掉
+find . -type f -size +50000k -exec rm {} \;
+
+1.寻找匹配的文件
+find . -name "*.txt" -print
+在当前目录下寻找txt文件 ，并用-print选项显示出来
+
+find . -iname "example*" -print
+-iname 就是ignore case，忽略大小写的匹配
+$ ls
+example.txt
+EXAMPLE.txt
+file.txt
+$ find . -iname "example*" -print
+./example.txt
+./EXAMPLE.txt
+
+2.多个条件的匹配
+If we want to match either of the multiple criterions, we can use OR conditions as shown below:
+$ ls
+new.txt
+some.jpg
+text.pdf
+
+$ find . \( -name "*.txt" -o -name "*.pdf" \) -print
+./text.pdf
+./new.txt
+注意： \( ..... \)  \(后有空格
+
+3. Negating arguments
+find . ! -name "*.txt" -print
+当前目录下寻找不是txt结尾的文件
+
+4.Search based on file type
+find . -type d -print 寻找
+find . -type f -print
+find . -type l -print
+

@@ -3,3 +3,95 @@ maxdepth保证只进入一层目录 type d表示只找目录
 
 在当前目录下查找大于50M的文件，然后删掉
 find . -type f -size +50000k -exec rm {} \;
+
+1.寻找匹配的文件
+find . -name "*.txt" -print
+在当前目录下寻找txt文件 ，并用-print选项显示出来
+
+find . -iname "example*" -print
+-iname 就是ignore case，忽略大小写的匹配
+$ ls
+example.txt
+EXAMPLE.txt
+file.txt
+$ find . -iname "example*" -print
+./example.txt
+./EXAMPLE.txt
+
+2.多个条件的匹配
+If we want to match either of the multiple criterions, we can use OR conditions as shown below:
+$ ls
+new.txt
+some.jpg
+text.pdf
+
+$ find . \( -name "*.txt" -o -name "*.pdf" \) -print
+./text.pdf
+./new.txt
+注意： \( ..... \)  \(后有空格
+
+3. Negating arguments
+find . ! -name "*.txt" -print
+当前目录下寻找不是txt结尾的文件
+
+4.Search based on file type
+find . -type d -print 寻找目录
+find . -type f -print 寻找文件
+find . -type l -print 寻找link
+
+5.根据时间来搜索
+Print all the files that were accessed within the last 7 days as follows:
+$ find . -type f -atime -7 -print
+Print all the files that are having access time exactly 7 days old as follows:
+$ find . -type f -atime 7 -print
+Print all the files that are having access time older than 7 days as follows:
+$ find . -type f -atime +7 -print
+In order to print all the files that are having access time older than seven minutes, use the
+following command:
+$ find . -type f -amin +7 -print
+For example, find all the files that are having a modification time greater than that of the
+modification time of a given file.txt file as follows:
+$ find . -type f -newer file.txt -print
+6.根据大小来搜索
+$ find . -type f -size +2k
+# Files having size greater than 2 kilobytes
+$ find . -type f -size -2k
+# Files having size less than 2 kilobytes
+$ find . -type f -size 2k
+# Files having size 2 kilobytes
+7.带delete选项的find
+The -delete flag can be used to remove files that are matched by find .
+Remove all the .swp files from the current directory as follows:
+$ find . -type f -name "*.swp" -delete
+8.根据权限就行搜索
+$ find . -type f -perm 644 -print
+# Print files having permission 644
+$ find . –type f –name "*.php" ! -perm 644 –print
+
+For example, to print the list of all files owned by the user slynux, you can use the
+following command:
+$ find . -type f -user slynux -print
+
+9.带exec的find
+# find . -type f –user root –exec chown slynux {} \;
+In this command, {} is a special string used with the –exec option. For each file match, {}
+will be replaced with the file name in place for –exec .
+以上命令将root用户的文件全部该为sylnux。
+
+Another usage example is to concatenate all the C program files in a given directory and write
+it to a single file all_c_files.txt . We can use find to match all the C files recursively and
+use the cat command with the -exec flag as follows:
+$ find . -type f -name "*.c" -exec cat {} \;>all_c_files.txt
+To redirect the data from find to the all_c_files.txt file, we used the > operator instead
+of >> (append) because the entire output from the find command is a single data stream
+( stdin ). >> is necessary only when multiple data streams are to be appended to a single file.
+
+-exec with multiple commands
+We cannot use multiple commands along with the –exec parameter. It
+accepts only a single command, but we can use a trick. Write multiple
+commands in a shell script (for example, commands.sh) and use it
+with –exec as follows:
+–exec ./commands.sh {} \;
+
+
+

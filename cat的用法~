@@ -1,0 +1,12 @@
+Concatenating with cat
+1.cat的基本用法就是concatenating，即拼接多个文件
+ cat file1.txt file2.txt file3.txt
+ echo "text from stdio" | cat - file1.txt 这里的-代表的是echo "text from stdio"的输出，将text from stdio与file1.txt里的东东一起显示
+2.消灭换行符
+ 假设file1.txt里有多个空行(multiple blank line)
+ cat -s file1.txt
+
+3. 输出行号
+ cat -n file1.txt
+ 输出每一行都带有行号
+4. 
