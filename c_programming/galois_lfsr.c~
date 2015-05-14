@@ -1,0 +1,15 @@
+#include <stdint.h>
+#include <stdio.h>
+
+int main()
+{
+	printf("This program is used to generate galois with polynomial=x16+x5+x4+x3+1");
+	int lfsr[16]={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+	int lfsr_next[16]={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+
+	/*do{
+		
+	}while(lfsr!=start);*/
+	
+	return 0;
+}

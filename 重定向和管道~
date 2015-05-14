@@ -4,7 +4,3 @@
 在.bashrc中
 source /opt/Xilinx/14.7/ISE_DS/settings64.sh /dev/null
 这样就可以了，/dev/null就是垃圾箱
-
-
-比如我有个C写的程序叫xxx，它输出一大堆东东，我想把他重定向到文件： ./xxx >1.txt 
-这样输出就重定向到1.txt中去了
