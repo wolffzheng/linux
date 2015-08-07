@@ -1,0 +1,6 @@
+installation:
+sudo apt-get install clamav
+update virus database:
+sudo freshclam
+running:
+sudo clamscan -r /
