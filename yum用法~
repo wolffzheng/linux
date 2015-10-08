@@ -1,0 +1,12 @@
+ 
+yum是centos以及redhat专用的安装工具
+1. yum install
+2. yum list ibus列出ibus的所有的包
+3. yum -y install 也是安装，不过一路都自动输入y
+4. rpm -ivh 软件名 -i 安装 -vh列出安装的过程
+5. yum clean all
+   yum makecache 更新repository
+6. 增加repository
+   添加repo文件到 /etc/yum.repos.d/ 目录下
+   yum clean all
+   yum makecache
